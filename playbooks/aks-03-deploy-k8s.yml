@@ -2,14 +2,12 @@
   hosts: localhost
   connection: local
   no_log: false
-  vars_files:
-    - ./vars-myvars.yml
 
   tasks:
 
     - name: "Query Azure Container Registry for credential information"
       azure.azcollection.azure_rm_containerregistry_info:
-        name: "summitsummit2021acr"
+        name: "summit2021acr"
         resource_group: "summit2021"
         retrieve_credentials: "yes"
       register: acr_output
