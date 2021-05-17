@@ -28,7 +28,7 @@ spec:
         app: flights-api
     spec:
       containers:
-        - image: chzbrgr71/flights-api:v1.1
+        - image: summit2021acr.azurecr.io/aksdemo/flights-api:v1.1
           imagePullPolicy: Always
           name: flights-api
           resources:

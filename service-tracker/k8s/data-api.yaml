@@ -28,7 +28,7 @@ spec:
         app: data-api
     spec:
       containers:
-        - image: chzbrgr71/data-api:v1.1
+        - image: summit2021acr.azurecr.io/aksdemo/data-api:v1.1
           imagePullPolicy: Always
           name: data-api
           resources:

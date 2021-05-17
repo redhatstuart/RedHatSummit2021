@@ -1,11 +1,16 @@
-FROM node:10.9.0-alpine
+FROM node:10
 
-WORKDIR /usr/src/app
+RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
+WORKDIR /home/node/app
+
+RUN id
 COPY package*.json ./
+USER node
 RUN npm install
 
-COPY . .
+COPY --chown=node:node . .
 ENV NODE_ENV "development"
 EXPOSE 8080
 
 CMD [ "npm", "run", "container" ]
+

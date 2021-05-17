@@ -27,7 +27,7 @@ spec:
         app: service-tracker-ui
     spec:
       containers:
-        - image: chzbrgr71/service-tracker-ui:v1.1
+        - image: summit2021acr.azurecr.io/aksdemo/service-tracker-ui:v1.1
           imagePullPolicy: Always
           name: service-tracker-ui
           resources:
