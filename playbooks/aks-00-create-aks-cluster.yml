@@ -2,20 +2,20 @@
   hosts: localhost
   connection: local
   no_log: false
-  vars_files:
-    - ./vars-myvars.yml
-  roles:
-    - ../modules
+  #  vars_files:
+  #    - ./vars-myvars.yml
+#  roles:
+#    - ../modules
 
   tasks:
     - name: Create a managed Azure Container Services (AKS) instance to support K8S Service Tracker Application
       azure.azcollection.azure_rm_aks:
-        name: "{{ vm_name }}-aks"
-        resource_group: "{{ resource_group }}"
-        kubernetes_version: "1.15.12"
-        dns_prefix: "{{ vm_name }}-dns"
+        name: "summit-aks"
+        resource_group: "summit2021"
+        kubernetes_version: "1.19.7"
+        dns_prefix: "summit-dns"
         linux_profile:
-          admin_username:  "{{ admin_username }}"
+          admin_username:  "adminuser"
           ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
         service_principal:
           client_id: "{{ lookup('env', 'AZURE_CLIENT_ID') }}"
@@ -29,4 +29,4 @@
       register: aks_output
 
     - debug:
-        msg: "The name of your AKS cluster is: {{ aks_output.name }}. Please execute: 'az aks get-credentials -n {{ aks_output.name }} -g {{ resource_group }}'"
+        msg: "The name of your AKS cluster is: {{ aks_output.name }}. Please execute: 'az aks get-credentials -n {{ aks_output.name }} -g summit2021'"
