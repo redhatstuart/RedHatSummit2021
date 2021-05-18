@@ -14,7 +14,7 @@
       k8s_auth:
         host: "{{ aro_api_url }}"
         username: "{{ aro_username }}"
-        password: "Microsoft"
+        password: "{{ aro_password }}"
       register: k8s_auth_results
 
     - name: Save API key variable
