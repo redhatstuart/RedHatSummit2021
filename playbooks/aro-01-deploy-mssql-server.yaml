@@ -2,8 +2,11 @@
   hosts: localhost
   connection: local
   no_log: false
-  vars_files:
-    - ./vars-myvars.yml
+
+  vars:
+    aro_api_url: "x"
+    aro_username: "kubeadmin"
+    aro_password: "x"
 
   tasks:
 

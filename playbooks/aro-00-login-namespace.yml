@@ -2,8 +2,11 @@
   hosts: localhost
   connection: local
   no_log: false
-  vars_files:
-    - ./vars-myvars.yml
+
+  vars:
+    aro_api_url: "x"
+    aro_username: "kubeadmin"
+    aro_password: "x"
 
   tasks:
 
@@ -11,7 +14,7 @@
       k8s_auth:
         host: "{{ aro_api_url }}"
         username: "{{ aro_username }}"
-        password: "Microsoft"
+        password: "{{ aro_password }}"
       register: k8s_auth_results
 
     - name: Save API key variable

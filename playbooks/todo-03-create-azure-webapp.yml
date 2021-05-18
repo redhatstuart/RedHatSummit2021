@@ -2,33 +2,28 @@
   hosts: localhost
   connection: local
   no_log: false
-  vars_files:
-    - ./vars-myvars.yml
-  roles:
-    - ../modules
 
   tasks:
-
-    - name: Obtain Azure Container Registry Facts
+    - name: "Obtain Azure Container Registry Facts"
       azure.azcollection.azure_rm_containerregistry_info:
-        resource_group: "{{ resource_group }}"
-        name: "{{ vm_name }}{{ rnum }}acr"
-        retrieve_credentials: true
+        resource_group: "summit2021"
+        name: "summit2021acr"
+        retrieve_credentials: yes
       register: acr_output
 
-    - name: Obtain Cosmos DB Facts
+    - name: "Obtain Cosmos DB Facts"
       azure.azcollection.azure_rm_cosmosdbaccount_info:
-        resource_group: "{{ resource_group }}"
-        name: "{{ vm_name }}-cosmosdb"
+        resource_group: "summit2021"
+        name: "summit21-cosmosdb"
         retrieve_keys: all
         retrieve_connection_strings: yes
       register: cosmos_output
 
-    - name: Create Azure Web App for TODO Application utilizing container pushed to Azure Container Registry
+    - name: "Create Azure Web App for TODO Application utilizing container pushed to Azure Container Registry"
       azure.azcollection.azure_rm_webapp:
-        resource_group: "{{ resource_group }}"
-        name: "{{ vm_name }}-todo-webapp"
-        plan: "{{ vm_name }}-appservice-plan"
+        resource_group: "summit2021"
+        name: "summit21-todo-webapp"
+        plan: "summit21-appservice-plan"
         app_settings:
           MONGO_DBCONNECTION: "{{ cosmos_output.accounts[0].connection_strings.connection_strings[0].connection_string }}"
         container_settings:
@@ -37,10 +32,10 @@
           registry_server_user: "{{ acr_output.registries[0].name }}"
           registry_server_password: "{{ acr_output.registries[0].credentials.password }}"
 
-    - name: Obtain Azure Web App Facts
+    - name: "Obtain Azure Web App Facts"
       azure.azcollection.azure_rm_webapp_info:
-        resource_group: "{{ resource_group }}"
-        name: "{{ vm_name }}-todo-webapp"
+        resource_group: "summit2021"
+        name: "summit21-todo-webapp"
       register: webapp_output
 
     - debug:
